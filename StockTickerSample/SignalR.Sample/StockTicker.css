@@ -7,13 +7,13 @@
     border-collapse: collapse;
 }
 
-    #stockTable table th, #stockTable table td {
-        padding: 2px 6px;
-    }
+#stockTable table th, #stockTable table td {
+    padding: 2px 6px;
+}
 
-    #stockTable table td {
-        text-align: right;
-    }
+#stockTable table td {
+    text-align: right;
+}
 
 #stockTable .loading td {
     text-align: left;
@@ -26,27 +26,27 @@
     border: 1px solid #999;
 }
 
-    #stockTicker .inner {
-        width: 9999px;
-    }
+#stockTicker .inner {
+    width: 9999px;
+}
 
-    #stockTicker ul {
-        display: inline-block;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+#stockTicker ul {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
 
-    #stockTicker li {
-        display: inline-block;
-        margin-right: 8px;   
-    }
+#stockTicker li {
+    display: inline-block;
+    margin-right: 8px;   
+}
 
-    /*<li data-symbol="{Symbol}"><span class="symbol">{Symbol}</span><span class="price">{Price}</span><span class="change">{PercentChange}</span></li>*/
-    #stockTicker .symbol {
-        font-weight: bold;
-    }
+/*<li data-symbol="{Symbol}"><span class="symbol">{Symbol}</span><span class="price">{Price}</span><span class="change">{PercentChange}</span></li>*/
+#stockTicker .symbol {
+    font-weight: bold;
+}
 
-    #stockTicker .change {
-        font-style: italic;
-    }
+#stockTicker .change {
+    font-style: italic;
+}
