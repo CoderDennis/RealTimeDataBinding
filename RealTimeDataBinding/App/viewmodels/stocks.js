@@ -1,22 +1,15 @@
-﻿/// <reference path="../../Scripts/jquery-2.1.2.js" />
-/// <reference path="../../Scripts/jquery.signalR-2.1.2.js" />
+﻿/// <reference path="../../Scripts/jquery-2.1.3.intellisense.js" />
 /// <reference path="../../Scripts/underscore.js"/>
+/// <reference path="../../Scripts/require.js"/>
 
-define([], function () {
-    var ticker = $.connection.stockTicker; // the generated client-side hub proxy
+define(['stocks-hub'], function (stocksHub) {
 
     var vm = {
         stocks: [],
         isMarketOpened: false,
-        openMarket: function() {
-            ticker.server.openMarket();
-        },
-        closeMarket: function() {
-            ticker.server.closeMarket();
-        },
-        reset: function() {
-            ticker.server.reset();
-        }
+        openMarket: stocksHub.openMarket,
+        closeMarket: stocksHub.closeMarket,
+        reset: stocksHub.reset
     };
 
     function formatStock(stock) {
@@ -28,7 +21,7 @@ define([], function () {
     }
 
     function init() {
-        return ticker.server.getAllStocks().done(function (stocks) {
+        stocksHub.getAllStocks().done(function (stocks) {
             vm.stocks = _.map(stocks, formatStock);
         });
     };
@@ -44,63 +37,55 @@ define([], function () {
         $('#stockTicker').find('ul').stop();
     }
 
-    // Add client-side hub methods that the server will call
-    $.extend(ticker.client, {
-        updateStockPrice: function (stock) {
-            stock = formatStock(stock);
-            _.chain(vm.stocks)
-                .where({ Symbol: stock.Symbol })
-                .each(function(stockToUpdate) {
-                    for (var prop in stock) {
-                        if (stock.hasOwnProperty(prop)) {
-                            stockToUpdate[prop] = stock[prop];
-                        }
+    function updateStockPrice(stock) {
+        stock = formatStock(stock);
+        _.chain(vm.stocks)
+            .where({ Symbol: stock.Symbol })
+            .each(function (stockToUpdate) {
+                for (var prop in stock) {
+                    if (stock.hasOwnProperty(prop)) {
+                        stockToUpdate[prop] = stock[prop];
                     }
-                });
-            //var displayStock = formatStock(stock),
-            //    $row = $(rowTemplate.supplant(displayStock)),
-            //    $li = $(liTemplate.supplant(displayStock)),
-            //    bg = stock.LastChange < 0
-            //            ? '255,148,148' // red
-            //            : '154,240,117'; // green
+                }
+            });
+        //var displayStock = formatStock(stock),
+        //    $row = $(rowTemplate.supplant(displayStock)),
+        //    $li = $(liTemplate.supplant(displayStock)),
+        //    bg = stock.LastChange < 0
+        //            ? '255,148,148' // red
+        //            : '154,240,117'; // green
 
-            //$stockTableBody.find('tr[data-symbol=' + stock.Symbol + ']')
-            //    .replaceWith($row);
-            //$stockTickerUl.find('li[data-symbol=' + stock.Symbol + ']')
-            //    .replaceWith($li);
+        //$stockTableBody.find('tr[data-symbol=' + stock.Symbol + ']')
+        //    .replaceWith($row);
+        //$stockTickerUl.find('li[data-symbol=' + stock.Symbol + ']')
+        //    .replaceWith($li);
 
-            //$row.flash(bg, 1000);
-            //$li.flash(bg, 1000);
-        },
+        //$row.flash(bg, 1000);
+        //$li.flash(bg, 1000);
+    }
 
-        marketOpened: function () {
-            vm.isMarketOpened = true;
-            scrollTicker();
-        },
+    function marketOpened() {
+        vm.isMarketOpened = true;
+        scrollTicker();
+    }
 
-        marketClosed: function () {
-            vm.isMarketOpened = false;
-            stopTicker();
-        },
-
-        marketReset: function () {
-            return init();
-        }
-    });
-
+    function marketClosed() {
+        vm.isMarketOpened = false;
+        stopTicker();
+    }
 
     vm.activate = function () {
         // Start the connection
-        $.connection.hub.start()
+        stocksHub.connect(updateStockPrice, marketOpened, marketClosed, init)
             .then(init)
             .then(function () {
-                return ticker.server.getMarketState();
+                return stocksHub.getMarketState();
             })
             .done(function (state) {
                 if (state === 'Open') {
-                    ticker.client.marketOpened();
+                    marketOpened();
                 } else {
-                    ticker.client.marketClosed();
+                    marketClosed();
                 }
             });
     };

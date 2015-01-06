@@ -9,7 +9,6 @@
 
 define('jquery', function () { return jQuery; });
 define('knockout', ko);
-//define('signalr', $.connection);
 
 // A simple background color flash effect that uses jQuery Color plugin
 jQuery.fn.flash = function (color, duration) {

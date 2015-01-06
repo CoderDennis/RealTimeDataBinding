@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\main.js" />
+    <Content Include="App\stocks-hub.js" />
     <Content Include="App\viewmodels\flickr.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\viewmodels\stocks.js" />
