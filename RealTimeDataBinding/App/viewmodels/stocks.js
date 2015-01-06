@@ -4,12 +4,7 @@
 /// <reference path="../../Scripts/underscore.js"/>
 
 define([], function () {
-    var ticker = $.connection.stockTicker, // the generated client-side hub proxy
-    up = '▲',
-    down = '▼';
-    //$stockTable = $('#stockTable'),
-    //$stockTableBody = $stockTable.find('tbody'),
-    //rowTemplate = '<tr data-symbol="{Symbol}"><td>{Symbol}</td><td>{Price}</td><td>{DayOpen}</td><td>{DayHigh}</td><td>{DayLow}</td><td><span class="dir {DirectionClass}">{Direction}</span> {Change}</td><td>{PercentChange}</td></tr>',
+    var ticker = $.connection.stockTicker; // the generated client-side hub proxy
     //$stockTicker = $('#stockTicker'),
     //$stockTickerUl = $stockTicker.find('ul'),
     //liTemplate = '<li data-symbol="{Symbol}"><span class="symbol">{Symbol}</span> <span class="price">{Price}</span> <span class="change"><span class="dir {DirectionClass}">{Direction}</span> {Change} ({PercentChange})</span></li>';
@@ -28,21 +23,19 @@ define([], function () {
         }
     };
 
+    function formatStock(stock) {
+        return $.extend(stock, {
+            Price: stock.Price.toFixed(2),
+            PercentChange: (stock.PercentChange * 100).toFixed(2) + '%',
+            DirectionClass: stock.Change === 0 ? 'even' : stock.Change >= 0 ? 'fa-arrow-up' : 'fa-arrow-down'
+        });
+    }
 
     function init() {
         return ticker.server.getAllStocks().done(function (stocks) {
-            vm.stocks = stocks;
+            vm.stocks = _.map(stocks, formatStock);
         });
     };
-
-    //function formatStock(stock) {
-    //    return $.extend(stock, {
-    //        Price: stock.Price.toFixed(2),
-    //        PercentChange: (stock.PercentChange * 100).toFixed(2) + '%',
-    //        Direction: stock.Change === 0 ? '' : stock.Change >= 0 ? up : down,
-    //        DirectionClass: stock.Change === 0 ? 'even' : stock.Change >= 0 ? 'up' : 'down'
-    //    });
-    //}
 
     //function scrollTicker() {
     //    var w = $stockTickerUl.width();
@@ -57,6 +50,7 @@ define([], function () {
     // Add client-side hub methods that the server will call
     $.extend(ticker.client, {
         updateStockPrice: function (stock) {
+            stock = formatStock(stock);
             _.chain(vm.stocks)
                 .where({ Symbol: stock.Symbol })
                 .each(function(stockToUpdate) {

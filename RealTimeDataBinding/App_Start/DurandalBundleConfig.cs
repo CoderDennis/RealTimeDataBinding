@@ -23,6 +23,7 @@ namespace RealTimeDataBinding {
           .Include("~/Content/font-awesome.min.css")
 		  .Include("~/Content/durandal.css")
           .Include("~/Content/starterkit.css")
+          .Include("~/Content/stockticker.css")
         );
     }
 

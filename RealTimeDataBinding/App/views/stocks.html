@@ -13,6 +13,9 @@
                 <th>Symbol</th><th>Price</th><th>Open</th><th>High</th><th>Low</th><th>Change</th><th>%</th>
             </tr>
             </thead>
+            <tbody data-bind="visible: stocks.length == 0">
+                <tr class="loading"><td colspan="7">loading...</td></tr>
+            </tbody>
             <tbody data-bind="foreach: stocks">
                 <tr>
                     <td data-bind="text: Symbol"></td>
@@ -20,7 +23,7 @@
                     <td data-bind="text: DayOpen"></td>
                     <td data-bind="text: DayHigh"></td>
                     <td data-bind="text: DayLow"></td>
-                    <td><!--<span class="dir {DirectionClass}">{Direction}</span>--><span data-bind="text: Change"></span></td>
+                    <td><i class="fa pull-left" data-bind="css: DirectionClass"></i> <span data-bind="text: Change"></span></td>
                     <td data-bind="text: PercentChange"></td>
                 </tr>
             </tbody>
