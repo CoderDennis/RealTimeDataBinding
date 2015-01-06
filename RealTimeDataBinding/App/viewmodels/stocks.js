@@ -1,13 +1,9 @@
 ﻿/// <reference path="../../Scripts/jquery-2.1.2.js" />
 /// <reference path="../../Scripts/jquery.signalR-2.1.2.js" />
-/// <reference path="../../Scripts/require.js"/>
 /// <reference path="../../Scripts/underscore.js"/>
 
 define([], function () {
     var ticker = $.connection.stockTicker; // the generated client-side hub proxy
-    //$stockTicker = $('#stockTicker'),
-    //$stockTickerUl = $stockTicker.find('ul'),
-    //liTemplate = '<li data-symbol="{Symbol}"><span class="symbol">{Symbol}</span> <span class="price">{Price}</span> <span class="change"><span class="dir {DirectionClass}">{Direction}</span> {Change} ({PercentChange})</span></li>';
 
     var vm = {
         stocks: [],
@@ -37,15 +33,16 @@ define([], function () {
         });
     };
 
-    //function scrollTicker() {
-    //    var w = $stockTickerUl.width();
-    //    $stockTickerUl.css({ marginLeft: w });
-    //    $stockTickerUl.animate({ marginLeft: -w }, 15000, 'linear', scrollTicker);
-    //}
+    function scrollTicker() {
+        var $stockTickerUl = $('#stockTicker').find('ul');
+        var w = $stockTickerUl.width();
+        $stockTickerUl.css({ marginLeft: w });
+        $stockTickerUl.animate({ marginLeft: -w }, 15000, 'linear', scrollTicker);
+    }
 
-    //function stopTicker() {
-    //    $stockTickerUl.stop();
-    //}
+    function stopTicker() {
+        $('#stockTicker').find('ul').stop();
+    }
 
     // Add client-side hub methods that the server will call
     $.extend(ticker.client, {
@@ -78,12 +75,12 @@ define([], function () {
 
         marketOpened: function () {
             vm.isMarketOpened = true;
-            //scrollTicker();
+            scrollTicker();
         },
 
         marketClosed: function () {
             vm.isMarketOpened = false;
-            //stopTicker();
+            stopTicker();
         },
 
         marketReset: function () {

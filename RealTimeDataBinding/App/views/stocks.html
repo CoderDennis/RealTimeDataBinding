@@ -34,7 +34,13 @@
     <div id="stockTicker">
         <div class="inner">
             <ul>
-                <li class="loading">loading...</li>
+                <li class="loading" data-bind="visible: stocks.length == 0">loading...</li>
+                <!-- ko foreach: stocks  -->
+                <li><span class="symbol" data-bind="text: Symbol"></span>
+                    <span class="price" data-bind="text: Price"></span> 
+                    <span class="change"><i class="fa" data-bind="css: DirectionClass"></i> <span data-bind="text: Change"></span> (<span data-bind="text: PercentChange"></span>)</span>
+                </li>
+                <!-- /ko -->
             </ul>
         </div>
     </div>
