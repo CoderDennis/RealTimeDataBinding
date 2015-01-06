@@ -23,7 +23,7 @@ define([], function () {
         return $.extend(stock, {
             Price: stock.Price.toFixed(2),
             PercentChange: (stock.PercentChange * 100).toFixed(2) + '%',
-            DirectionClass: stock.Change === 0 ? 'even' : stock.Change >= 0 ? 'fa-arrow-up' : 'fa-arrow-down'
+            DirectionClass: stock.Change === 0 ? '' : stock.Change >= 0 ? 'fa-caret-up' : 'fa-caret-down'
         });
     }
 

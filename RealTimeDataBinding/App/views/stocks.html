@@ -23,7 +23,7 @@
                     <td data-bind="text: DayOpen"></td>
                     <td data-bind="text: DayHigh"></td>
                     <td data-bind="text: DayLow"></td>
-                    <td><i class="fa pull-left" data-bind="css: DirectionClass"></i> <span data-bind="text: Change"></span></td>
+                    <td><i class="fa fa-lg" data-bind="css: DirectionClass"></i> <span data-bind="text: Change"></span></td>
                     <td data-bind="text: PercentChange"></td>
                 </tr>
             </tbody>
@@ -37,8 +37,8 @@
                 <li class="loading" data-bind="visible: stocks.length == 0">loading...</li>
                 <!-- ko foreach: stocks  -->
                 <li><span class="symbol" data-bind="text: Symbol"></span>
-                    <span class="price" data-bind="text: Price"></span> 
-                    <span class="change"><i class="fa" data-bind="css: DirectionClass"></i> <span data-bind="text: Change"></span> (<span data-bind="text: PercentChange"></span>)</span>
+                    <span data-bind="text: Price"></span> 
+                    <span class="change"><i class="fa fa-lg" data-bind="css: DirectionClass"></i> <span data-bind="text: Change"></span> (<span data-bind="text: PercentChange"></span>)</span>
                 </li>
                 <!-- /ko -->
             </ul>
