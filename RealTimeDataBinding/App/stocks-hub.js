@@ -10,6 +10,9 @@
             ticker.client.marketReset = marketReset;
             return $.connection.hub.start();
         },
+        disconnect: function () {
+            return $.connection.hub.stop();
+        },
         openMarket: function() {
             ticker.server.openMarket();
         },

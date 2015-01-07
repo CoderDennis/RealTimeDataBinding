@@ -1,9 +1,9 @@
 ﻿<section>
     <h1>SignalR Stock Ticker</h1>
 
-    <input type="button" value="Open Market" data-bind="enable: !isMarketOpened, click: openMarket" />
-    <input type="button" value="Close Market" data-bind="enable: isMarketOpened, click: closeMarket" />
-    <input type="button" value="Reset" data-bind="enable: !isMarketOpened, click: reset" />
+    <button class="btn" data-bind="enable: !isMarketOpened, click: openMarket">Open Market</button>
+    <button class="btn" data-bind="enable: isMarketOpened, click: closeMarket">Close Market</button>
+    <button class="btn" data-bind="enable: !isMarketOpened, click: reset">Reset</button>
 
     <h2>Live Stock Table</h2>
     <div id="stockTable">

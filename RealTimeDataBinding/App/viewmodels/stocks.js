@@ -9,7 +9,8 @@ define(['stocks-hub'], function (stocksHub) {
         isMarketOpened: false,
         openMarket: stocksHub.openMarket,
         closeMarket: stocksHub.closeMarket,
-        reset: stocksHub.reset
+        reset: stocksHub.reset,
+        deactivate: stocksHub.disconnect
     };
 
     function formatStock(stock) {

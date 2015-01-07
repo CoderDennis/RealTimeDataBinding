@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
+using RealTimeDataBinding;
 
-[assembly: OwinStartup(typeof(RealTimeDataBinding.App_Start.Startup), "Configuration")]
+[assembly: OwinStartup(typeof(Startup), "Configuration")]
 
-namespace RealTimeDataBinding.App_Start
+namespace RealTimeDataBinding
 {
     class Startup
     {
