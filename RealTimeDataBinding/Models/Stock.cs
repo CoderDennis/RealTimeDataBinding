@@ -44,8 +44,11 @@ namespace RealTimeDataBinding.Models
                 {
                     return;
                 }
-                
-                LastChange = value - _price;
+
+                if (_price != 0) // initial price setting shouldn't be considered a change
+                {
+                    LastChange = value - _price;
+                }
                 _price = value;
                 
                 if (DayOpen == 0)
