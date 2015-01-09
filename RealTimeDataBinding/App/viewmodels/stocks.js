@@ -2,7 +2,7 @@
 /// <reference path="../../Scripts/underscore.js"/>
 /// <reference path="../../Scripts/require.js"/>
 
-define(['stocks-hub'], function (stocksHub) {
+define(['signalr/stocksHub'], function (stocksHub) {
 
     var vm = {
         stocks: [],
