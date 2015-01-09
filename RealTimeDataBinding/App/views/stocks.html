@@ -17,7 +17,7 @@
                 <tr class="loading"><td colspan="7">loading...</td></tr>
             </tbody>
             <tbody data-bind="foreach: stocks">
-                <tr>
+                <tr data-bind="changeFlash: LastChange">
                     <td data-bind="text: Symbol"></td>
                     <td data-bind="price: Price"></td>
                     <td data-bind="price: DayOpen"></td>
@@ -36,7 +36,8 @@
             <ul>
                 <li class="loading" data-bind="visible: stocks.length == 0">loading...</li>
                 <!-- ko foreach: stocks  -->
-                <li><span class="symbol" data-bind="text: Symbol"></span>
+                <li data-bind="changeFlash: LastChange">
+                    <span class="symbol" data-bind="text: Symbol"></span>
                     <span data-bind="price: Price"></span>
                     <span class="change"><i data-bind="direction: Change"></i> <span data-bind="text: Change"></span> (<span data-bind="percent: PercentChange"></span>)</span>
                 </li>

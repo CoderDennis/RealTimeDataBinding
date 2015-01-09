@@ -10,19 +10,13 @@
 define('jquery', function () { return jQuery; });
 define('knockout', ko);
 
-// A simple background color flash effect that uses jQuery Color plugin
-jQuery.fn.flash = function (color, duration) {
-    var current = this.css('backgroundColor');
-    this.animate({ backgroundColor: 'rgb(' + color + ')' }, duration / 2)
-        .animate({ backgroundColor: current }, duration / 2);
-};
-
 define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],  function (system, app, viewLocator) {
     //>>excludeStart("build", true);
     system.debug(true);
     //>>excludeEnd("build");
 
     require([
+        'bindings/changeFlash',
         'bindings/direction',
         'bindings/percent',
         'bindings/price'

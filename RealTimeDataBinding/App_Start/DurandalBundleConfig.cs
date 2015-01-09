@@ -14,6 +14,7 @@ namespace RealTimeDataBinding {
 			.Include("~/Scripts/knockout-{version}.js")
             .Include("~/Scripts/jquery.signalR-{version}.js")
             .Include("~/Scripts/underscore.js")
+            .Include("~/Scripts/jquery.color-{version}.js")
 		);
 
       bundles.Add(
