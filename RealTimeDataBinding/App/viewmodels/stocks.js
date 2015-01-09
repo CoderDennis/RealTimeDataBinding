@@ -2,7 +2,7 @@
 /// <reference path="../../Scripts/underscore.js"/>
 /// <reference path="../../Scripts/require.js"/>
 
-define(['signalr/stocksHub'], function (stocksHub) {
+define(['signalr/stocksHub', 'plugins/observable'], function (stocksHub, observable) {
 
     var vm = {
         stocks: [],
@@ -12,6 +12,14 @@ define(['signalr/stocksHub'], function (stocksHub) {
         reset: stocksHub.reset,
         deactivate: stocksHub.disconnect
     };
+
+    observable(vm, 'stocks').subscribe(function (changes) {
+        _.chain(changes)
+            .where({ status: 'added' })
+            .each(function (add) {
+                observable(vm.stocks[add.index], 'LastChange').extend({ notify: 'always' });
+            })
+    }, null, 'arrayChange');
 
     function init() {
         stocksHub.getAllStocks().done(function (stocks) {
