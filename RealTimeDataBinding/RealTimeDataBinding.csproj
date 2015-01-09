@@ -117,6 +117,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\bindings\direction.js" />
+    <Content Include="App\bindings\percent.js" />
+    <Content Include="App\bindings\price.js" />
     <Content Include="App\main.js" />
     <Content Include="App\signalr\stocksHub.js" />
     <Content Include="App\viewmodels\flickr.js" />

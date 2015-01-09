@@ -13,17 +13,9 @@ define(['signalr/stocksHub'], function (stocksHub) {
         deactivate: stocksHub.disconnect
     };
 
-    function formatStock(stock) {
-        return $.extend(stock, {
-            Price: stock.Price.toFixed(2),
-            PercentChange: (stock.PercentChange * 100).toFixed(2) + '%',
-            DirectionClass: stock.Change === 0 ? '' : stock.Change >= 0 ? 'fa-caret-up' : 'fa-caret-down'
-        });
-    }
-
     function init() {
         stocksHub.getAllStocks().done(function (stocks) {
-            vm.stocks = _.map(stocks, formatStock);
+            vm.stocks = stocks;
         });
     };
 
@@ -39,7 +31,6 @@ define(['signalr/stocksHub'], function (stocksHub) {
     }
 
     function updateStockPrice(stock) {
-        stock = formatStock(stock);
         _.chain(vm.stocks)
             .where({ Symbol: stock.Symbol })
             .each(function (stockToUpdate) {

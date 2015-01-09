@@ -22,6 +22,12 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],  function (s
     system.debug(true);
     //>>excludeEnd("build");
 
+    require([
+        'bindings/direction',
+        'bindings/percent',
+        'bindings/price'
+    ]);
+
     app.title = 'Durandal Starter Kit';
 
     app.configurePlugins({
